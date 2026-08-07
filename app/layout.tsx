@@ -10,19 +10,27 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: baseUrl,
-    title: "Your Name · Academic Homepage",
-    description: "A warm, editorial personal academic homepage for presenting research, publications, experience, and service.",
+    title: "Junhan Wang | 王俊翰",
+    description: "Junhan Wang is a Research Assistant at CFCS, Peking University, working on robotic manipulation.",
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "32x32" },
+      ],
+      shortcut: "/favicon.ico",
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    },
     openGraph: {
-      title: "Your Name · Academic Homepage",
-      description: "Research in machine learning, visual computing, and intelligent systems.",
+      title: "Junhan Wang | 王俊翰",
+      description: "Interested in agentic robot learning, with a focus on generalist and dexterous manipulation.",
       type: "website",
-      images: [{ url: new URL("/og.png", baseUrl).toString(), width: 1200, height: 630, alt: "Your Name academic homepage" }],
+      images: [{ url: new URL("/og_v2.png", baseUrl).toString(), width: 1200, height: 630, alt: "Junhan Wang academic homepage" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Your Name · Academic Homepage",
-      description: "Research in machine learning, visual computing, and intelligent systems.",
-      images: [new URL("/og.png", baseUrl).toString()],
+      title: "Junhan Wang | 王俊翰",
+      description: "Interested in agentic robot learning, with a focus on generalist and dexterous manipulation.",
+      images: [new URL("/og_v2.png", baseUrl).toString()],
     },
   };
 }

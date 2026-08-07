@@ -1,76 +1,97 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type Publication = {
-  index: string;
-  area: string;
   title: string;
   authors: string;
   venue: string;
-  highlight?: string;
   abstract: string;
+  image: string;
+  imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
   links: { label: string; href: string }[];
 };
 
-// Template content: replace the text and URLs below with your own information.
 const publications: Publication[] = [
   {
-    index: "01",
-    area: "AI",
-    title: "Learning Structured World Models from Multimodal Interaction",
-    authors: "Your Name, Collaborator One, Collaborator Two",
-    venue: "Conference on Machine Learning · 2026",
-    highlight: "Oral",
+    title: "OpenDexGrasp: Open-vocabulary Task-Oriented Dexterous Grasping",
+    authors:
+      "Jiyao Zhang*, Junhan Wang*, Tianyu Wang*, Zeyuan Chen, Anthony Bolton, Yitong Peng, Hao Dong",
+    venue: "In submission 2026",
     abstract:
-      "Add a concise two-to-four sentence summary of the problem, your key idea, and the main result. This expandable area keeps the page compact while still giving interested readers useful context.",
+      "OpenDexGrap is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
+    image: "/opendexgrasp-teaser.jpg",
+    imageAlt: "OpenDexGrasp framework and task-oriented grasp examples",
+    imageWidth: 3308,
+    imageHeight: 1318,
+    links: [],
+  },
+  {
+    title: "HiPolicy: Hierarchical Multi-Frequency Action Chunking for Policy Learning",
+    authors:
+      "Jiyao Zhang, Zimu Han, Junhan Wang, Xionghao Wu, Shihong Lin, Jinzhou Li, Hongwei Fan, Ruihai Wu, Dongjiang Li, Hao Dong",
+    venue: "European Conference on Computer Vision (ECCV) · 2026",
+    abstract:
+      "HiPolicy addresses the tradeoff between long-horizon planning and fine-grained control in imitation learning via a hierarchical multi-frequency action chunking framework.",
+    image: "/hipolicy-teaser.png",
+    imageAlt: "HiPolicy hierarchical multi-frequency action chunking overview",
+    imageWidth: 829,
+    imageHeight: 502,
     links: [
-      { label: "paper", href: "#" },
-      { label: "project", href: "#" },
-      { label: "code", href: "#" },
+      { label: "paper", href: "https://arxiv.org/abs/2604.06067" },
+      { label: "project", href: "https://hipolicy.github.io/" },
+      { label: "code", href: "https://github.com/HiPolicy/HiPolicy" },
     ],
   },
   {
-    index: "02",
-    area: "CV",
-    title: "Compositional Visual Reasoning with Lightweight Agents",
-    authors: "Collaborator One, Your Name, Collaborator Three",
-    venue: "International Conference on Computer Vision · 2025",
-    highlight: "Highlight",
+    title: "ESI-VLA: Learning Embodied Spatial Intelligence for Vision-Language-Action Models",
+    authors:
+      "Jiyao Zhang*, Yitong Peng*, Mingxu Zhang*, Xionghao Wu, Junhan Wang, Hao Dong",
+    venue: "In submission 2026",
     abstract:
-      "Use this space for a plain-language abstract. Explain what your method enables, why prior approaches struggle, and what the experiments demonstrate.",
-    links: [
-      { label: "paper", href: "#" },
-      { label: "website", href: "#" },
-      { label: "video", href: "#" },
-    ],
-  },
-  {
-    index: "03",
-    area: "HCI",
-    title: "Human-in-the-Loop Systems for Reliable Scientific Discovery",
-    authors: "Your Name, Collaborator Four, Collaborator Five",
-    venue: "Transactions on Interactive Intelligent Systems · 2025",
-    abstract:
-      "A final placeholder abstract demonstrates how longer research entries behave on desktop and mobile. Replace it freely or remove the abstract control when a short bibliography is enough.",
-    links: [
-      { label: "paper", href: "#" },
-      { label: "data", href: "#" },
-      { label: "code", href: "#" },
-    ],
+      "ESI-VLA strengthens VLM backbones with a 5M-scale embodied spatial dataset and RGB-derived spatial priors, improving spatial perception and zero-shot manipulation generalization.",
+    image: "/esi-vla-teaser.jpg",
+    imageAlt: "ESI-VLA dataset, model architecture, and evaluation overview",
+    imageWidth: 3108,
+    imageHeight: 1146,
+    links: [],
   },
 ];
 
 const navItems = [
   { label: "About", href: "#about" },
-  { label: "Research", href: "#research" },
-  { label: "Experience", href: "#experience" },
-  { label: "Service", href: "#service" },
 ];
+
+function HighlightedAuthors({ authors }: { authors: string }) {
+  const [before, after = ""] = authors.split("Junhan Wang");
+  return (
+    <>
+      {before}
+      <u>Junhan Wang</u>
+      {after}
+    </>
+  );
+}
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const [wechatOpen, setWechatOpen] = useState(false);
+  const [openAbstracts, setOpenAbstracts] = useState<Set<string>>(
+    () => new Set(publications.map(({ title }) => title)),
+  );
+
+  const toggleAbstract = (title: string) => {
+    setOpenAbstracts((current) => {
+      const next = new Set(current);
+      if (next.has(title)) next.delete(title);
+      else next.add(title);
+      return next;
+    });
+  };
 
   useEffect(() => {
     const sections = navItems
@@ -91,13 +112,26 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!wechatOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setWechatOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [wechatOpen]);
+
   return (
     <>
       <nav className="site-nav" aria-label="Primary navigation">
         <div className="nav-inner">
           <a className="brand" href="#about" onClick={() => setMenuOpen(false)}>
-            <span className="brand-mark" aria-hidden="true">Y</span>
-            <strong>Your Name</strong>
+            <span className="brand-mark" aria-hidden="true">W</span>
+            <strong>Junhan Wang</strong>
           </a>
 
           <button
@@ -130,36 +164,41 @@ export default function Home() {
       <main>
         <section className="container hero" id="about">
           <div className="portrait-column">
-            <div className="portrait-placeholder" role="img" aria-label="Portrait placeholder">
-              <span>YN</span>
-              <small>Replace with portrait</small>
-            </div>
-            <p className="caption">Your photo caption · 2026</p>
+            <Image
+              className="hero-photo"
+              src="/junhan.jpg"
+              alt="Junhan Wang"
+              width={4032}
+              height={3024}
+              priority
+              unoptimized
+            />
+            <p className="caption">Shot in June 2026</p>
           </div>
 
           <div className="hero-copy">
-            <p className="eyebrow">Researcher · Your University</p>
-            <h1>Your Name</h1>
-            <p className="email">yourname [at] university [dot] edu</p>
+            <h1>
+              Junhan Wang <span className="chinese-name" lang="zh-CN">王俊翰</span>
+            </h1>
+            <p className="email">junhan.wang0805 [at] gmail [dot] com</p>
             <p>
-              I am a <a href="#">Ph.D. student</a> in Computer Science at Your
-              University, advised by <a href="#">Professor Name</a>. My research
-              explores the intersection of machine learning, visual computing,
-              and intelligent systems.
+              Currently, I am spending my gap year as a Research Assistant at the <a href="https://cfcs.pku.edu.cn/english/">Center on Frontiers of Computing Studies (CFCS)</a> at Peking University,
+              advised by <a href="https://zsdonghao.github.io/">Prof. Hao Dong</a>. Prior to this, I received my bachelor&apos;s degree in Telecommunication Engineering from <a href="https://www.sysu.edu.cn/">Sun Yat-sen University</a>.
             </p>
             <p>
-              I build learning systems that can understand complex environments,
-              collaborate with people, and generalize beyond their training data.
-              I am always happy to discuss research and new collaborations.
+              My research interests lie in agentic robot learning, with a particular focus on generalist and dexterous manipulation.
+            </p>
+            <p className="opportunity-note">
+              I am seeking Ph.D. or M.Phil. opportunities starting in Spring or Fall 2027.
             </p>
             <div className="profile-links" aria-label="Profile links">
-              <a href="#">Google Scholar</a>
+              <a href="https://github.com/Haner-LiveInLove">GitHub</a>
               <span aria-hidden="true">/</span>
-              <a href="#">GitHub</a>
+              <a href="mailto:junhan.wang0805@gmail.com">Email</a>
               <span aria-hidden="true">/</span>
-              <a href="#">ORCID</a>
+              <a href="https://scholar.google.com/citations?hl=en&user=WQlEOv0AAAAJ" target="_blank" rel="noreferrer">Google Scholar</a>
               <span aria-hidden="true">/</span>
-              <a href="mailto:yourname@university.edu">Email</a>
+              <button type="button" onClick={() => setWechatOpen(true)}>WeChat</button>
             </div>
           </div>
         </section>
@@ -167,45 +206,69 @@ export default function Home() {
         <section className="container page-section" id="research">
           <header className="section-heading">
             <div>
-              <p className="section-kicker">Selected work</p>
-              <h2>Recent Research</h2>
+              <h2>Research &amp; Publications</h2>
             </div>
-            <a className="view-all" href="#">All publications ↗</a>
           </header>
           <div className="rule" />
-
-          <p className="subsection-label">Machine Learning &amp; Interactive Systems</p>
+          <p className="subsection-label">Dexterous Manipulation · Policy Learning · VLA</p>
 
           <div className="publication-list">
             {publications.map((publication) => (
-              <article className="publication" key={publication.index}>
-                <div className={`paper-visual visual-${publication.index}`} aria-hidden="true">
-                  <span className="paper-area">{publication.area}</span>
-                  <span className="paper-index">{publication.index}</span>
-                  <i />
+              <article className="publication" key={publication.title}>
+                <div className="paper-visual-shell">
+                  <button
+                    className="paper-visual"
+                    type="button"
+                    aria-label={`View the complete ${publication.title} figure`}
+                  >
+                    <Image
+                      className="paper-pan-image"
+                      src={publication.image}
+                      alt={publication.imageAlt}
+                      width={publication.imageWidth}
+                      height={publication.imageHeight}
+                      unoptimized
+                    />
+                  </button>
+                  <div className="paper-preview-overlay" aria-hidden="true">
+                    <Image
+                      className="paper-preview-image"
+                      src={publication.image}
+                      alt=""
+                      width={publication.imageWidth}
+                      height={publication.imageHeight}
+                      unoptimized
+                    />
+                  </div>
                 </div>
 
                 <div className="paper-copy">
                   <h3>{publication.title}</h3>
-                  <p className="authors">
-                    {publication.authors.split("Your Name")[0]}
-                    <u>Your Name</u>
-                    {publication.authors.split("Your Name")[1]}
-                  </p>
+                  <p className="authors"><HighlightedAuthors authors={publication.authors} /></p>
                   <p className="venue">
                     {publication.venue}
-                    {publication.highlight && (
-                      <span className="highlight"> · {publication.highlight}</span>
-                    )}
                   </p>
                   <div className="paper-actions">
-                    <details>
-                      <summary>[abstract]</summary>
-                      <p>{publication.abstract}</p>
-                    </details>
+                    <button
+                      className="abstract-toggle"
+                      type="button"
+                      aria-expanded={openAbstracts.has(publication.title)}
+                      aria-controls={`${publication.title.split(":")[0].toLowerCase()}-abstract`}
+                      onClick={() => toggleAbstract(publication.title)}
+                    >
+                      [abstract]
+                    </button>
                     {publication.links.map((link) => (
-                      <a href={link.href} key={link.label}>[{link.label}]</a>
+                      <a href={link.href} key={link.label} target="_blank" rel="noreferrer">[{link.label}]</a>
                     ))}
+                    {openAbstracts.has(publication.title) && (
+                      <p
+                        className="abstract-copy"
+                        id={`${publication.title.split(":")[0].toLowerCase()}-abstract`}
+                      >
+                        {publication.abstract}
+                      </p>
+                    )}
                   </div>
                 </div>
               </article>
@@ -214,40 +277,90 @@ export default function Home() {
         </section>
 
         <section className="container page-section" id="experience">
-          <p className="section-kicker">Where I have worked</p>
           <h2>Experience</h2>
           <div className="rule" />
-          <div className="timeline">
-            <article className="timeline-item">
-              <div className="institution-mark">AI</div>
-              <div>
-                <h3>Research Lab · Research Intern</h3>
-                <p>Summer 2026 · Foundation Models &amp; Intelligent Agents</p>
+          <div className="experience-groups">
+            <section className="experience-group" aria-labelledby="research-experience-heading">
+              <h3 className="experience-category" id="research-experience-heading">Research</h3>
+              <div className="timeline">
+                <article className="timeline-item">
+                  <div className="institution-mark university">
+                    <Image src="/pku.png" alt="Peking University" width={58} height={58} unoptimized />
+                  </div>
+                  <div>
+                    <h4>Peking University · Research Assistant</h4>
+                    <p><a href="https://cfcs.pku.edu.cn/english/">CFCS</a> · Advised by <a href="https://zsdonghao.github.io/">Prof. Hao Dong</a></p>
+                    <p className="timeline-date">Jul. 2025—Present · Beijing, China</p>
+                  </div>
+                </article>
               </div>
-            </article>
-            <article className="timeline-item">
-              <div className="institution-mark university">U</div>
-              <div>
-                <h3>Your University · Ph.D. in Computer Science</h3>
-                <p>2024—Present · Advisor: Professor Name</p>
+            </section>
+            <section className="experience-group" aria-labelledby="education-heading">
+              <h3 className="experience-category" id="education-heading">Education</h3>
+              <div className="timeline">
+                <article className="timeline-item">
+                  <div className="institution-mark university">
+                    <Image src="/sysu.png" alt="Sun Yat-sen University" width={58} height={58} unoptimized />
+                  </div>
+                  <div>
+                    <h4>Sun Yat-sen University · B.Eng. in Telecommunication Engineering</h4>
+                    <p><a href="https://seit.sysu.edu.cn/">SEIT</a> · GPA 3.94/4.0 · <strong>Rank 1/72</strong></p>
+                    <p className="timeline-date">Sep. 2020—Jun. 2025 · Guangzhou, China</p>
+                  </div>
+                </article>
               </div>
-            </article>
+            </section>
           </div>
         </section>
 
-        <section className="container page-section" id="service">
-          <p className="section-kicker">Academic community</p>
-          <h2>Service</h2>
+        <section className="container page-section" id="honors">
+          <h2>Honors</h2>
           <div className="rule" />
-          <p className="service-copy">
-            Reviewer: Conference A, Conference B, Journal C · Teaching:
-            Introduction to Machine Learning · Mentoring: Undergraduate Research Program
-          </p>
+
+          <ul className="honors-list">
+            <li><span>2025</span><p><strong>Outstanding Graduate in SYSU, Top 5%</strong></p></li>
+            <li><span>2025</span><p>Excellent Bachelor Thesis in SYSU, Top 5%</p></li>
+            <li><span>2022, 2024</span><p><strong>National Scholarship ×2, Top 1%</strong></p></li>
+            <li><span>2022, 2023, 2024</span><p>The First-Class Scholarship in SYSU ×3, Top 5%</p></li>
+            <li className="honors-linked-item">
+              <a
+                className="honors-entry-link"
+                href="https://www.sysu.edu.cn/news/info/1881/1150121.htm"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>2023</span>
+                <div>
+                  <p>Lin Bin &amp; Liu Xiangdong Scholarship, Academic Rank: 1/248 in SEIT</p>
+                  <p className="honors-note">Funded by Lin Bin, the co-founder of Xiaomi Corporation and an alumnus of SEIT</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+
         </section>
       </main>
 
+      {wechatOpen && (
+        <div className="wechat-backdrop" role="presentation" onMouseDown={() => setWechatOpen(false)}>
+          <section
+            className="wechat-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="wechat-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button className="wechat-close" type="button" aria-label="Close WeChat QR code" onClick={() => setWechatOpen(false)}>×</button>
+            <p className="section-kicker">Connect</p>
+            <h2 id="wechat-title">WeChat</h2>
+            <Image src="/wechat.jpg" alt="Junhan Wang WeChat QR code" width={888} height={1191} unoptimized />
+            <p>Scan the QR code to add me on WeChat.</p>
+          </section>
+        </div>
+      )}
+
       <footer>
-        <p>© {new Date().getFullYear()} Your Name</p>
+        <p>© {new Date().getFullYear()} Junhan Wang</p>
         <a href="#about">Back to top ↑</a>
       </footer>
     </>
