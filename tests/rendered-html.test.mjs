@@ -34,6 +34,8 @@ test("server-renders Junhan Wang's academic homepage", async () => {
   assert.match(html, /Research &amp; Publications/);
   assert.doesNotMatch(html, /Selected work|Training &amp; education|Recognition/);
   assert.match(html, /OpenDexGrasp/);
+  assert.match(html, /https:\/\/opendexgrasp\.github\.io\/static\/assets\/opendexgrasp\.pdf/);
+  assert.match(html, /https:\/\/opendexgrasp\.github\.io\//);
   assert.match(html, /HiPolicy/);
   assert.match(html, /ESI-VLA/);
   assert.equal((html.match(/In submission 2026/g) ?? []).length, 2);

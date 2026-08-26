@@ -27,7 +27,10 @@ const publications: Publication[] = [
     imageAlt: "OpenDexGrasp framework and task-oriented grasp examples",
     imageWidth: 3308,
     imageHeight: 1318,
-    links: [],
+    links: [
+      { label: "paper", href: "https://opendexgrasp.github.io/static/assets/opendexgrasp.pdf" },
+      { label: "project", href: "https://opendexgrasp.github.io/" },
+    ],
   },
   {
     title: "HiPolicy: Hierarchical Multi-Frequency Action Chunking for Policy Learning",
