@@ -29,7 +29,7 @@ const publications: Publication[] = [
     imageHeight: 1318,
     links: [
       { label: "paper", href: "https://opendexgrasp.github.io/static/assets/opendexgrasp.pdf" },
-      { label: "project", href: "https://opendexgrasp.github.io/" },
+      { label: "website", href: "https://opendexgrasp.github.io/" },
     ],
   },
   {
@@ -45,7 +45,7 @@ const publications: Publication[] = [
     imageHeight: 502,
     links: [
       { label: "paper", href: "https://arxiv.org/abs/2604.06067" },
-      { label: "project", href: "https://hipolicy.github.io/" },
+      { label: "website", href: "https://hipolicy.github.io/" },
       { label: "code", href: "https://github.com/HiPolicy/HiPolicy" },
     ],
   },
