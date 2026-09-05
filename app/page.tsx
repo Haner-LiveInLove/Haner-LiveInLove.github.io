@@ -20,7 +20,7 @@ const publications: Publication[] = [
     title: "OpenDexGrasp: Open-vocabulary Task-Oriented Dexterous Grasping",
     authors:
       "Jiyao Zhang*, Junhan Wang*, Tianyu Wang*, Zeyuan Chen, Anthony Bolton, Yitong Peng, Hao Dong",
-    venue: "Conference on Robot Learning (CoRL) · 2026",
+    venue: "The Conference on Robot Learning (CoRL) · 2026",
     abstract:
       "OpenDexGrap is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
     image: "/opendexgrasp-teaser.jpg",
