@@ -272,6 +272,20 @@ h2 {
   text-align: center;
 }
 
+.caption a {
+  color: var(--slate);
+  text-decoration-line: underline;
+  text-decoration-color: var(--quiet);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: none;
+}
+
+.caption a:hover {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+
 .hero-copy {
   padding-top: 4px;
 }
