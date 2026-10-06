@@ -7,6 +7,7 @@ type Publication = {
   title: string;
   authors: string;
   venue: string;
+  distinction?: { label: string; detail: string };
   abstract: string;
   image: string;
   imageAlt: string;
@@ -21,6 +22,10 @@ const publications: Publication[] = [
     authors:
       "Jiyao Zhang*, Junhan Wang*, Tianyu Wang*, Zeyuan Chen, Anthony Bolton, Yitong Peng, Hao Dong",
     venue: "The Conference on Robot Learning (CoRL) · 2026",
+    distinction: {
+      label: "Oral",
+      detail: "21 of 687 accepted papers, 3.1%",
+    },
     abstract:
       "OpenDexGrap is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
     image: "/opendexgrasp-teaser.jpg",
@@ -257,6 +262,16 @@ export default function Home() {
                   <p className="authors"><HighlightedAuthors authors={publication.authors} /></p>
                   <p className="venue">
                     {publication.venue}
+                    {publication.distinction && (
+                      <>
+                        {" "}
+                        <span className="publication-distinction">
+                          <strong className="oral-badge">{publication.distinction.label}</strong>
+                          {" "}
+                          <span className="oral-detail">({publication.distinction.detail})</span>
+                        </span>
+                      </>
+                    )}
                   </p>
                   <div className="paper-actions">
                     <button

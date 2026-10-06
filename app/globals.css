@@ -610,6 +610,26 @@ h2 {
   font-weight: 600;
 }
 
+.publication-distinction {
+  color: var(--opportunity-red);
+}
+
+.oral-badge {
+  display: inline-block;
+  margin-left: 0.3em;
+  padding: 0 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: var(--orange-soft);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.oral-detail {
+  font-size: 15px;
+  font-weight: 400;
+}
+
 .paper-actions {
   display: flex;
   flex-wrap: wrap;
