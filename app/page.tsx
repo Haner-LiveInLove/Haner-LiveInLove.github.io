@@ -33,7 +33,7 @@ const publications: Publication[] = [
     imageWidth: 3308,
     imageHeight: 1318,
     links: [
-      { label: "paper", href: "https://opendexgrasp.github.io/static/assets/opendexgrasp.pdf" },
+      { label: "paper", href: "https://arxiv.org/abs/2609.18117" },
       { label: "website", href: "https://opendexgrasp.github.io/" },
     ],
   },
