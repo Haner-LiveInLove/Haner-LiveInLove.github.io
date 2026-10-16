@@ -18,6 +18,26 @@ npm run build
 
 This starter does not use `wrangler.jsonc`.
 
+## Homepage visitor statistics
+
+The footer in `app/visitor-stats.tsx` uses one VisitorBadge `combined` image for
+today's visits and total visits. The badge links to the public dashboard for
+`haner-liveinlove.github.io`. These are the provider's counts and daily rollover,
+not historical Cloudflare totals; the two services count independently.
+
+Live Flag Counter uses the public counter ID `ionep5cv`. Its image loads once
+in the background with `loading="eager"` and `hidden`, without displaying a
+badge or link. View its statistics at <https://liveflagcounter.com/stats/ionep5cv>.
+No environment variable or repository setting is required. Its country
+statistics are independent of VisitorBadge's today/total counts. Keep the
+private edit key outside this repository; the public ID is all the website needs.
+
+Both footer counters load only on the production hostname and respect Do Not
+Track / Global Privacy Control. Local previews show `— / —` without recording
+visits. Images load directly from their providers once per page load; do not
+proxy, periodically refresh, or add separate daily and total counting images.
+An unavailable badge shows a text fallback rather than a fabricated zero.
+
 ## Included Shape
 
 - edit site code under `app/`

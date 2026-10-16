@@ -899,8 +899,10 @@ footer {
   width: min(980px, calc(100% - 48px));
   margin: 68px auto 0;
   padding: 26px 0 30px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 18px;
   color: var(--quiet);
   border-top: 1px solid var(--line);
   font-size: 13px;
@@ -908,6 +910,56 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+.back-to-top {
+  justify-self: end;
+}
+
+.visitor-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.visitor-badge {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  text-decoration: none;
+}
+
+.visitor-badge {
+  min-height: 24px;
+}
+
+.visitor-badge img {
+  display: block;
+  width: auto;
+  height: 24px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.visitor-badge-placeholder {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 3px;
+  color: #fff;
+  font: 11px/24px Verdana, sans-serif;
+}
+
+.visitor-badge-placeholder > span {
+  padding: 0 8px;
+  background: var(--slate);
+}
+
+.visitor-badge-placeholder > span:last-child {
+  min-width: 50px;
+  background: #a85300;
+  text-align: center;
 }
 
 @media (max-width: 840px) {
@@ -1025,6 +1077,13 @@ footer p {
 
   footer {
     margin-top: 56px;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .visitor-stats {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 }
 

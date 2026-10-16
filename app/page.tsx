@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import VisitorStats from "./visitor-stats";
 
 type Publication = {
   title: string;
@@ -386,7 +387,8 @@ export default function Home() {
 
       <footer>
         <p>© {new Date().getFullYear()} Junhan Wang</p>
-        <a href="#about">Back to top ↑</a>
+        <VisitorStats />
+        <a className="back-to-top" href="#about">Back to top ↑</a>
       </footer>
     </>
   );
