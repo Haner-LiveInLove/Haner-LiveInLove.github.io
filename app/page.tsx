@@ -28,7 +28,7 @@ const publications: Publication[] = [
       detail: "21 of 687 accepted papers, 3.1%",
     },
     abstract:
-      "OpenDexGrap is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
+      "OpenDexGrasp is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
     image: "/opendexgrasp-teaser.jpg",
     imageAlt: "OpenDexGrasp framework and task-oriented grasp examples",
     imageWidth: 3308,
