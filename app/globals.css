@@ -610,14 +610,11 @@ h2 {
   font-weight: 600;
 }
 
-.publication-distinction {
-  color: var(--opportunity-red);
-}
-
 .oral-badge {
   display: inline-block;
   margin-left: 0.3em;
   padding: 0 0.5em;
+  color: var(--opportunity-red);
   border: 1px solid currentColor;
   border-radius: 4px;
   background: var(--orange-soft);
@@ -626,7 +623,11 @@ h2 {
 }
 
 .oral-detail {
-  font-size: 15px;
+  margin: 6px 0 0;
+  padding-left: 12px;
+  border-left: 3px solid currentColor;
+  color: var(--opportunity-red);
+  font-size: 16px;
   font-weight: 600;
 }
 

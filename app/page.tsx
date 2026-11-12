@@ -25,7 +25,7 @@ const publications: Publication[] = [
     venue: "The Conference on Robot Learning (CoRL) · 2026",
     distinction: {
       label: "Oral",
-      detail: "21 of 687 accepted papers, 3.1%",
+      detail: "Top 21 of 687 accepted papers (3.1%), from 2,094 submissions",
     },
     abstract:
       "OpenDexGrasp is a unified data and generative modeling framework that grounds free-form functional intent in visual and geometric observations to generate executable, task-consistent dexterous grasps.",
@@ -261,19 +261,18 @@ export default function Home() {
                 <div className="paper-copy">
                   <h3>{publication.title}</h3>
                   <p className="authors"><HighlightedAuthors authors={publication.authors} /></p>
-                  <p className="venue">
+                  <div className="venue">
                     {publication.venue}
                     {publication.distinction && (
                       <>
                         {" "}
-                        <span className="publication-distinction">
-                          <strong className="oral-badge">{publication.distinction.label}</strong>
-                          {" "}
-                          <span className="oral-detail">({publication.distinction.detail})</span>
-                        </span>
+                        <strong className="oral-badge">{publication.distinction.label}</strong>
+                        <blockquote className="oral-detail">
+                          {publication.distinction.detail}
+                        </blockquote>
                       </>
                     )}
-                  </p>
+                  </div>
                   <div className="paper-actions">
                     <button
                       className="abstract-toggle"

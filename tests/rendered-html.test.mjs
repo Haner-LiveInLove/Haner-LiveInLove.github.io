@@ -38,7 +38,7 @@ test("server-renders Junhan Wang's academic homepage", async () => {
   assert.match(html, /https:\/\/opendexgrasp\.github\.io\//);
   assert.match(html, /The Conference on Robot Learning \(CoRL\) · 2026/);
   assert.match(html, /<strong class="oral-badge">Oral<\/strong>/);
-  assert.match(html, /21 of 687 accepted papers, 3\.1%/);
+  assert.match(html, /<blockquote class="oral-detail">Top 21 of 687 accepted papers \(3\.1%\), from 2,094 submissions<\/blockquote>/);
   assert.match(html, /HiPolicy/);
   assert.match(html, /European Conference on Computer Vision \(ECCV\) · 2026/);
   assert.match(html, /href="https:\/\/arxiv\.org\/abs\/2604\.06067"/);
